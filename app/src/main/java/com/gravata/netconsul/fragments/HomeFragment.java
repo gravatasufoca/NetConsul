@@ -2,7 +2,6 @@ package com.gravata.netconsul.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +72,7 @@ public class HomeFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.home_fragment, container, false);
 
         TextView saudacao = (TextView) rootView.findViewById(R.id.home_saudacao);
+        TextView nome = (TextView) rootView.findViewById(R.id.home_nome);
 
         String strSaudacao="";
         Calendar c = Calendar.getInstance();
@@ -86,13 +86,13 @@ public class HomeFragment extends Fragment {
             strSaudacao= getString(R.string.home_boa_noite);
         }
 
-        saudacao.setText(String.format(strSaudacao, UsuarioAutenticado.getInstance().getUsuario().getNome()));
-
+        saudacao.setText(strSaudacao);
+        nome.setText(UsuarioAutenticado.getInstance().getUsuario().getNome());
         return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(String uri);
     }
 
 }

@@ -1,9 +1,43 @@
 #
-# generated on 2014/06/27 02:50:19
+# generated on 2015/10/18 07:03:12
 #
 # --table-start--
-dataClass=br.com.android.financas.model.Categoria
-tableName=categoria
+dataClass=com.gravata.netconsul.model.Pergunta
+tableName=pergunta
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id_pergunta
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nomePergunta
+columnName=nome_fantasia
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=dataCadastro
+columnName=nome_fantasia
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=situacao
+columnName=nome_fantasia
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=tipoPergunta
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.gravata.netconsul.model.Usuario
+tableName=usuario
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -11,195 +45,235 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=nome
-width=20
-canBeNull=false
-unique=true
+columnName=username
 # --field-end--
 # --field-start--
-fieldName=cor
-canBeNull=false
+fieldName=email
+columnName=email
 # --field-end--
 # --field-start--
-fieldName=despesas
+fieldName=senha
+columnName=password
+# --field-end--
+# --field-start--
+fieldName=planilhas
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=atendimentos
 foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=br.com.android.financas.model.Configuracoes
-tableName=configuracoes
+dataClass=com.gravata.netconsul.model.Atendimento
+tableName=atendimento
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=jurosPoupanca
+fieldName=usuario
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
 # --field-end--
 # --field-start--
-fieldName=jurosAutomatico
+fieldName=cliente
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=endereco
+columnName=ds_endereco
+# --field-end--
+# --field-start--
+fieldName=latitude
+columnName=ds_latitude
+# --field-end--
+# --field-start--
+fieldName=longitude
+columnName=ds_longitude
+# --field-end--
+# --field-start--
+fieldName=dataCadastro
+columnName=dt_cadastro
+dataPersister=DATE_LONG
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=br.com.android.financas.model.Despesa
-tableName=despesa
+dataClass=com.gravata.netconsul.model.TipoPergunta
+tableName=tipo_pergunta
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=id_tipo_pergunta
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nome
+columnName=nome_tipo_pergunta
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=situacao
+columnName=situacao_tipo_pergunta
+canBeNull=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.gravata.netconsul.model.Planilha
+tableName=planilha
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=pai
+fieldName=usuario
 foreign=true
 foreignAutoRefresh=true
 foreignAutoCreate=true
 # --field-end--
 # --field-start--
-fieldName=recorrente
+fieldName=cliente
 foreign=true
 foreignAutoRefresh=true
 foreignAutoCreate=true
 # --field-end--
 # --field-start--
-fieldName=categoria
-columnName=categoria
-canBeNull=false
+fieldName=pergunta
 foreign=true
 foreignAutoRefresh=true
+foreignAutoCreate=true
 # --field-end--
 # --field-start--
-fieldName=valor
-dataPersister=DOUBLE
-canBeNull=false
+fieldName=protocolo
+columnName=id_protocolo
 # --field-end--
 # --field-start--
-fieldName=descricao
+fieldName=resposta
+columnName=id_resposta
 # --field-end--
 # --field-start--
-fieldName=data
+fieldName=ocorrencia
+columnName=ocorrencia
+# --field-end--
+# --field-start--
+fieldName=acaoCorretiva
+columnName=acao_corretiva
+# --field-end--
+# --field-start--
+fieldName=observacao
+columnName=observacao
+# --field-end--
+# --field-start--
+fieldName=dataCadastro
+columnName=data_cadastro
 dataPersister=DATE_LONG
-canBeNull=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.gravata.netconsul.model.Temperatura
+tableName=temperaturas
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=filhos
+fieldName=usuario
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=cliente
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=temperaturaClientes
 foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=br.com.android.financas.model.Poupanca
-tableName=poupanca
+dataClass=com.gravata.netconsul.model.Cliente
+tableName=cliente
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=pai
-foreign=true
-foreignAutoRefresh=true
-foreignAutoCreate=true
+fieldName=nomeFantasia
+columnName=nome_fantasia
 # --field-end--
 # --field-start--
-fieldName=valor
-dataPersister=DOUBLE
-canBeNull=false
+fieldName=cnpj
+columnName=cnpj
 # --field-end--
 # --field-start--
-fieldName=data
-dataPersister=DATE_LONG
-canBeNull=false
+fieldName=telefone
+columnName=telefone
 # --field-end--
 # --field-start--
-fieldName=atualizado
-dataPersister=DATE_LONG
-# --field-end--
-# --field-start--
-fieldName=despesa
-dataPersister=BOOLEAN
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=br.com.android.financas.model.Receita
-tableName=receita
-# --table-fields-start--
-# --field-start--
-fieldName=id
-generatedId=true
-# --field-end--
-# --field-start--
-fieldName=pai
-foreign=true
-foreignAutoRefresh=true
-foreignAutoCreate=true
-# --field-end--
-# --field-start--
-fieldName=valor
-dataPersister=DOUBLE
-canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=descricao
-# --field-end--
-# --field-start--
-fieldName=data
-dataPersister=DATE_LONG
-canBeNull=false
-# --field-end--
-# --field-start--
-fieldName=filhos
+fieldName=planilhas
 foreignCollection=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=br.com.android.financas.model.Recorrente
-tableName=recorrente
+dataClass=com.gravata.netconsul.model.TemperaturaCliente
+tableName=temperatura_cliente
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=pai
+fieldName=temperatura
+columnName=id_temperatura
+canBeNull=false
 foreign=true
 foreignAutoRefresh=true
 foreignAutoCreate=true
 # --field-end--
 # --field-start--
-fieldName=categoria
-columnName=categoria
-canBeNull=false
-foreign=true
-foreignAutoRefresh=true
-# --field-end--
-# --field-start--
-fieldName=valor
-dataPersister=DOUBLE
+fieldName=equipamento
+columnName=equipamento
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=descricao
-# --field-end--
-# --field-start--
-fieldName=data
-dataPersister=DATE_LONG
+fieldName=dsTemperatura
+columnName=temperatura
 canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=filhos
-foreignCollection=true
+fieldName=observacao
+columnName=observacao
+canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=frequencia
-dataPersister=ENUM_STRING
+fieldName=acao
+columnName=acao
 canBeNull=false
 # --field-end--
 # --table-fields-end--

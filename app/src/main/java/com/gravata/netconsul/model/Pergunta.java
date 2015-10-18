@@ -19,19 +19,19 @@ public class Pergunta extends EntidadeAbstrata{
     @DatabaseField(generatedId = true,columnName = "id_pergunta")
     private int id;
 
-    @DatabaseField(canBeNull=true,columnName = "nome_fantasia")
+    @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
     @FieldName(fieldName="nomeFantasia")
     private String nomePergunta;
 
-    @DatabaseField(canBeNull=true,columnName = "nome_fantasia")
+    @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
     @FieldName(fieldName="nomeFantasia")
     private Date dataCadastro;
 
-    @DatabaseField(canBeNull=true,columnName = "nome_fantasia")
+    @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
     @FieldName(fieldName="nomeFantasia")
     private String situacao;
 
-    @DatabaseField(canBeNull=true,foreign=true,foreignAutoRefresh=true,foreignAutoCreate=true)
+    @DatabaseField(canBeNull=false,foreign=true,foreignAutoRefresh=true,foreignAutoCreate=true)
     private TipoPergunta tipoPergunta;
 
     @Override

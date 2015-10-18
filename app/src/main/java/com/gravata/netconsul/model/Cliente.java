@@ -1,12 +1,13 @@
 package com.gravata.netconsul.model;
 
 import com.gravata.netconsul.helper.FieldName;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bruno on 11/10/15.
@@ -33,7 +34,8 @@ public class Cliente extends EntidadeAbstrata {
     private String telefone;
 
     @ForeignCollectionField(eager = false)
-    private ForeignCollection<Planilha> planilhas;
+    private List<Planilha> planilhas=new ArrayList<Planilha>();
+    //private ForeignCollection<Planilha> planilhas;
 
     @Override
     public Serializable getId() {
@@ -68,11 +70,12 @@ public class Cliente extends EntidadeAbstrata {
         this.id = id;
     }
 
-    public ForeignCollection<Planilha> getPlanilhas() {
+    public List<Planilha> getPlanilhas() {
+
         return planilhas;
     }
 
-    public void setPlanilhas(ForeignCollection<Planilha> planilhas) {
+    public void setPlanilhas(List<Planilha> planilhas) {
         this.planilhas = planilhas;
     }
 }

@@ -1,6 +1,5 @@
 package com.gravata.netconsul.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,11 +15,12 @@ import android.view.View;
 
 import com.gravata.netconsul.R;
 import com.gravata.netconsul.authenticator.AutenticarUsuario;
+import com.gravata.netconsul.fragments.ClienteListaFragment;
 import com.gravata.netconsul.fragments.HomeFragment;
 import com.gravata.netconsul.fragments.RespostaPlanilhaFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,RespostaPlanilhaFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,RespostaPlanilhaFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener,ClienteListaFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         //loga-se
-        AutenticarUsuario.autenticar("","");
+        AutenticarUsuario.autenticar("", "");
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,10 +93,10 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
-            getFragmentManager().beginTransaction().replace(R.id.content_main,new RespostaPlanilhaFragment(),"").commit();
+        if (id == R.id.nav_clientes) {
+            getFragmentManager().beginTransaction().replace(R.id.content_main,new ClienteListaFragment(),"").commit();
         } else if (id == R.id.nav_gallery) {
-            getFragmentManager().beginTransaction().replace(R.id.content_main,new HomeFragment(),"").commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_main,new RespostaPlanilhaFragment(),"").commit();
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -113,8 +113,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction(String id) {
 
     }
 }

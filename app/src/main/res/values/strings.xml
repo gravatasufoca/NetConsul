@@ -12,6 +12,9 @@
     <string name="temperatura">Temperatura</string>
     <string name="temperaturas">Temperaturas</string>
     <string name="title_activity_login">Entrar</string>
+    <string name="clientes">Clientes</string>
+    <string name="cliente">Cliente</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -36,9 +39,9 @@
     
     
     <!--home -->
-    <string name="home_bom_dia">Bom dia %s!</string>
-    <string name="home_boa_tarde">Boa tarde %s!</string>
-    <string name="home_boa_noite">Boa noite %s!</string>
+    <string name="home_bom_dia">Bom dia</string>
+    <string name="home_boa_tarde">Boa tarde</string>
+    <string name="home_boa_noite">Boa noite</string>
     <string name="home_mensagem">Bem-vindo a NETCONSUL - Consultoria em Rede</string>
     <string name="home_msg_menu">Use o menu lateral para prosseguir com o sistema.</string>
 
