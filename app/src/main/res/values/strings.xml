@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">NetConsul</string>
+
+    <string name="navigation_drawer_open">Abrir nevegação</string>
+    <string name="navigation_drawer_close">Fechar nevegação</string>
+
+    <string name="action_settings">Configurações</string>
+
+    <!-- menu lateral-->
+    <string name="planilha">Planilha</string>
+    <string name="planilhas">Planilhas</string>
+    <string name="temperatura">Temperatura</string>
+    <string name="temperaturas">Temperaturas</string>
+    <string name="title_activity_login">Entrar</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+
+    <!-- pesquisa planilha -->
+    <string name="prompt_cliente">Cliente</string>
+    <string name="prompt_responsavel">Responsável</string>
+    <string name="prompt_dt_inicio">Data início</string>
+    <string name="prompt_dt_fim">Data fim</string>
+    <string name="pesquisar">Pesquisar</string>
+    
+    
+    <!--home -->
+    <string name="home_bom_dia">Bom dia %s!</string>
+    <string name="home_boa_tarde">Boa tarde %s!</string>
+    <string name="home_boa_noite">Boa noite %s!</string>
+    <string name="home_mensagem">Bem-vindo a NETCONSUL - Consultoria em Rede</string>
+    <string name="home_msg_menu">Use o menu lateral para prosseguir com o sistema.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>

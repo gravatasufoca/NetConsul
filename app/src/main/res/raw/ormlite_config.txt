@@ -1,0 +1,207 @@
+#
+# generated on 2014/06/27 02:50:19
+#
+# --table-start--
+dataClass=br.com.android.financas.model.Categoria
+tableName=categoria
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=nome
+width=20
+canBeNull=false
+unique=true
+# --field-end--
+# --field-start--
+fieldName=cor
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=despesas
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=br.com.android.financas.model.Configuracoes
+tableName=configuracoes
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=jurosPoupanca
+# --field-end--
+# --field-start--
+fieldName=jurosAutomatico
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=br.com.android.financas.model.Despesa
+tableName=despesa
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=pai
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=recorrente
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=categoria
+columnName=categoria
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=valor
+dataPersister=DOUBLE
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=descricao
+# --field-end--
+# --field-start--
+fieldName=data
+dataPersister=DATE_LONG
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=filhos
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=br.com.android.financas.model.Poupanca
+tableName=poupanca
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=pai
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=valor
+dataPersister=DOUBLE
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=data
+dataPersister=DATE_LONG
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=atualizado
+dataPersister=DATE_LONG
+# --field-end--
+# --field-start--
+fieldName=despesa
+dataPersister=BOOLEAN
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=br.com.android.financas.model.Receita
+tableName=receita
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=pai
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=valor
+dataPersister=DOUBLE
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=descricao
+# --field-end--
+# --field-start--
+fieldName=data
+dataPersister=DATE_LONG
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=filhos
+foreignCollection=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=br.com.android.financas.model.Recorrente
+tableName=recorrente
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=pai
+foreign=true
+foreignAutoRefresh=true
+foreignAutoCreate=true
+# --field-end--
+# --field-start--
+fieldName=categoria
+columnName=categoria
+canBeNull=false
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=valor
+dataPersister=DOUBLE
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=descricao
+# --field-end--
+# --field-start--
+fieldName=data
+dataPersister=DATE_LONG
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=filhos
+foreignCollection=true
+# --field-end--
+# --field-start--
+fieldName=frequencia
+dataPersister=ENUM_STRING
+canBeNull=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

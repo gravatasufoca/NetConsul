@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/planilha_resposta_indice"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/planilha_resposta_pergunta"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/planilha_resposta_indice"
+        android:layout_alignBottom="@+id/planilha_resposta_indice"
+        />
+
+    <RadioGroup
+        android:id="@+id/planilha_resposta_radios"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/planilha_resposta_pergunta"
+        android:layout_alignLeft="@+id/planilha_resposta_indice"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/planilha_resposta_sim"
+            android:text="Sim"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/planilha_resposta_nao"
+            android:text="Náo"/>
+
+    </RadioGroup>
+
+    <MultiAutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New MultiAutoCompleteTextView"
+        android:id="@+id/planilha_resposta_acao"
+        android:layout_below="@+id/planilha_resposta_radios"
+        android:layout_alignLeft="@+id/planilha_resposta_indice"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>
