@@ -18,9 +18,14 @@ import com.gravata.netconsul.authenticator.AutenticarUsuario;
 import com.gravata.netconsul.fragments.ClienteListaFragment;
 import com.gravata.netconsul.fragments.HomeFragment;
 import com.gravata.netconsul.fragments.RespostaPlanilhaFragment;
+import com.gravata.netconsul.fragments.TemperaturaListaFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,RespostaPlanilhaFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener,ClienteListaFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        RespostaPlanilhaFragment.OnFragmentInteractionListener,
+        HomeFragment.OnFragmentInteractionListener,
+        ClienteListaFragment.OnFragmentInteractionListener,
+        TemperaturaListaFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +104,8 @@ public class MainActivity extends AppCompatActivity
             getFragmentManager().beginTransaction().replace(R.id.content_main,new RespostaPlanilhaFragment(),"").commit();
 
         } else if (id == R.id.nav_slideshow) {
+            getFragmentManager().beginTransaction().replace(R.id.content_main,new TemperaturaListaFragment(),"").commit();
+
 
         } else if (id == R.id.nav_manage) {
 

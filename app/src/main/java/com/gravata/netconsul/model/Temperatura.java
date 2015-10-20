@@ -1,11 +1,13 @@
 package com.gravata.netconsul.model;
 
 import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by bruno on 11/10/15.
@@ -25,6 +27,15 @@ public class Temperatura extends EntidadeAbstrata{
 
     @ForeignCollectionField(eager = false)
     private ForeignCollection<TemperaturaCliente> temperaturaClientes;
+
+    @DatabaseField(canBeNull = false,columnName = "equipamento")
+    private String equipamento;
+
+    @DatabaseField(canBeNull = false,columnName = "valor")
+    private String valor;
+
+    @DatabaseField(canBeNull = false,columnName = "data_cadatro",dataType = DataType.DATE_LONG)
+    private Date dataCadastro;
 
     @Override
     public Serializable getId() {
@@ -57,5 +68,29 @@ public class Temperatura extends EntidadeAbstrata{
 
     public void setTemperaturaClientes(ForeignCollection<TemperaturaCliente> temperaturaClientes) {
         this.temperaturaClientes = temperaturaClientes;
+    }
+
+    public String getEquipamento() {
+        return equipamento;
+    }
+
+    public void setEquipamento(String equipamento) {
+        this.equipamento = equipamento;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 }

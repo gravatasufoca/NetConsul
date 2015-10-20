@@ -37,6 +37,10 @@ public class Cliente extends EntidadeAbstrata {
     private List<Planilha> planilhas=new ArrayList<Planilha>();
     //private ForeignCollection<Planilha> planilhas;
 
+    @ForeignCollectionField(eager = false)
+    private List<Temperatura> temperaturas=new ArrayList<Temperatura>();
+
+
     @Override
     public Serializable getId() {
         return id;
@@ -77,5 +81,13 @@ public class Cliente extends EntidadeAbstrata {
 
     public void setPlanilhas(List<Planilha> planilhas) {
         this.planilhas = planilhas;
+    }
+
+    public List<Temperatura> getTemperaturas() {
+        return temperaturas;
+    }
+
+    public void setTemperaturas(List<Temperatura> temperaturas) {
+        this.temperaturas = temperaturas;
     }
 }

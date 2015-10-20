@@ -9,6 +9,7 @@ import com.gravata.netconsul.model.TipoPergunta;
 import com.gravata.netconsul.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -56,6 +57,16 @@ public class MockDeConteudo {
             PERGUNTAS.add(pergunta);
         }
 
+        //monta os temperaturas
+        for (int i = 0; i < 5; i++) {
+            Temperatura temperatura = new Temperatura();
+            temperatura.setDataCadastro(new Date());
+            temperatura.setEquipamento(String.format("equipamento %s", i + 1));
+            temperatura.setValor(String.format("%sC", i + 1));
+            temperatura.setId(i);
+            TEMPERATURAS.add(temperatura);
+        }
+
         //monta as TIPOS perguntas
         for (int i = 0; i < 5; i++) {
             TipoPergunta pergunta = new TipoPergunta();
@@ -89,11 +100,24 @@ public class MockDeConteudo {
                 a = 0;
         }
 
+        for (int i = 0, a = 0; i < 10; i++, a++) {
+            TEMPERATURAS.get(i).setUsuario(USUARIOS.get(a));
+            TEMPERATURAS.get(i).setCliente(CLIENTES.get(a));
+
+            if (a == 4)
+                a = 0;
+        }
+
         for (Cliente cliente : CLIENTES) {
 
             for (Planilha planilha : PLANILHAS) {
                 if (planilha.getCliente().equals(cliente))
                     cliente.getPlanilhas().add(planilha);
+            }
+
+            for(Temperatura temperatura:TEMPERATURAS){
+                if(temperatura.getCliente().equals(cliente))
+                    cliente.getTemperaturas().add(temperatura);
             }
         }
 

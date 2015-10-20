@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/NetConsul.iml" filepath="$PROJECT_DIR$/NetConsul.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialSpinner/materialSpinner.iml" filepath="$PROJECT_DIR$/materialSpinner/materialSpinner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quickactions/quickactions.iml" filepath="$PROJECT_DIR$/quickactions/quickactions.iml" />
     </modules>
   </component>
 </project>

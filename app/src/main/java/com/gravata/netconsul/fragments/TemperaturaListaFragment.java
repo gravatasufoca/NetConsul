@@ -1,22 +1,19 @@
 package com.gravata.netconsul.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.gravata.netconsul.R;
-import com.gravata.netconsul.adapter.ClienteListaAdapter;
-import com.gravata.netconsul.adapter.planilha.MockDeConteudo;
-
-import quick.action.QuickActionBar;
-import quick.action.QuickActionIcons;
+import com.gravata.netconsul.fragments.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -27,7 +24,7 @@ import quick.action.QuickActionIcons;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ClienteListaFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class TemperaturaListaFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,8 +37,6 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
 
     private OnFragmentInteractionListener mListener;
 
-    private QuickActionBar qbar;
-
     /**
      * The fragment's ListView/GridView.
      */
@@ -51,11 +46,11 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ClienteListaAdapter mAdapter;
+    private ListAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static ClienteListaFragment newInstance(String param1, String param2) {
-        ClienteListaFragment fragment = new ClienteListaFragment();
+    public static TemperaturaListaFragment newInstance(String param1, String param2) {
+        TemperaturaListaFragment fragment = new TemperaturaListaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,7 +62,7 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ClienteListaFragment() {
+    public TemperaturaListaFragment() {
     }
 
     @Override
@@ -79,13 +74,15 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        mAdapter = new ClienteListaAdapter(this.getActivity(), MockDeConteudo.CLIENTES);
+        // TODO: Change Adapter to display your content
+        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cliente, container, false);
+        View view = inflater.inflate(R.layout.fragment_temperatura, container, false);
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -119,16 +116,7 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            //mListener.onFragmentInteraction(MockDeConteudo.CLIENTES.get(position).getCnpj());
-
-            qbar=new QuickActionBar(view);
-            qbar.setAnimationStyle(QuickActionBar.GROW_FROM_CENTER);
-
-            QuickActionIcons teste = new QuickActionIcons();
-            teste.setTitle("teste");
-
-            qbar.addItem(teste);
-            qbar.show();
+            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
         }
     }
 

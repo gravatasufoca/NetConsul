@@ -1,1 +1,1 @@
-include ':app', ':materialSpinner'
+include ':app', ':materialSpinner', 'quickactions'
