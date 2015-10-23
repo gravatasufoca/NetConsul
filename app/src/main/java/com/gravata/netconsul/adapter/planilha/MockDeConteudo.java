@@ -100,7 +100,7 @@ public class MockDeConteudo {
                 a = 0;
         }
 
-        for (int i = 0, a = 0; i < 10; i++, a++) {
+        for (int i = 0, a = 0; i < 5; i++, a++) {
             TEMPERATURAS.get(i).setUsuario(USUARIOS.get(a));
             TEMPERATURAS.get(i).setCliente(CLIENTES.get(a));
 
