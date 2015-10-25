@@ -20,6 +20,7 @@ public class ClienteListaAdapter extends ArrayAdapter<Cliente> {
 
     private LayoutInflater mInflater;
     private Integer corOriginal;
+    private int selecionado=-1;
 
     public ClienteListaAdapter(Context context, List<Cliente> itens) {
         super(context, 0,itens);
@@ -52,8 +53,15 @@ public class ClienteListaAdapter extends ArrayAdapter<Cliente> {
         else
             convertView.setBackgroundColor(corOriginal);
 
+        if(selecionado== position){
+            convertView.setBackgroundResource(android.R.color.holo_blue_light);
+        }
+
+
         return convertView;
     }
 
-
+    public void setSelecionado(int selecionado) {
+        this.selecionado = selecionado;
+    }
 }

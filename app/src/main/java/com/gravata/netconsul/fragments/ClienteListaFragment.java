@@ -3,20 +3,22 @@ package com.gravata.netconsul.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gravata.netconsul.R;
 import com.gravata.netconsul.adapter.ClienteListaAdapter;
 import com.gravata.netconsul.adapter.planilha.MockDeConteudo;
-
-import quick.action.QuickActionBar;
-import quick.action.QuickActionIcons;
+import com.gravata.netconsul.model.Cliente;
 
 /**
  * A fragment representing a list of Items.
@@ -27,7 +29,7 @@ import quick.action.QuickActionIcons;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class ClienteListaFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class ClienteListaFragment extends Fragment implements AbsListView.OnItemLongClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,8 +42,6 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
 
     private OnFragmentInteractionListener mListener;
 
-    private QuickActionBar qbar;
-
     /**
      * The fragment's ListView/GridView.
      */
@@ -52,6 +52,9 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
      * Views.
      */
     private ClienteListaAdapter mAdapter;
+    private ActionMode actionMode;
+    private View selecionado;
+
 
     // TODO: Rename and change types of parameters
     public static ClienteListaFragment newInstance(String param1, String param2) {
@@ -92,8 +95,8 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
-
+        mListView.setOnItemLongClickListener(this);
+        mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         return view;
     }
 
@@ -114,23 +117,7 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
         mListener = null;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            //mListener.onFragmentInteraction(MockDeConteudo.CLIENTES.get(position).getCnpj());
 
-            qbar=new QuickActionBar(view);
-            qbar.setAnimationStyle(QuickActionBar.GROW_FROM_CENTER);
-
-            QuickActionIcons teste = new QuickActionIcons();
-            teste.setTitle("teste");
-
-            qbar.addItem(teste);
-            qbar.show();
-        }
-    }
 
     /**
      * The default content for this Fragment has a TextView that is shown when
@@ -143,6 +130,19 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        selecionado=view;
+        mListView.setItemChecked(position,true);
+        mAdapter.setSelecionado(position);
+
+        mListView.startActionMode(new ActionModeCallBack(this.getActivity(),mAdapter.getItem(position)));
+        mAdapter.notifyDataSetChanged();
+        return true;
+
     }
 
     /**
@@ -158,6 +158,52 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
+    }
+
+    private class ActionModeCallBack implements ActionMode.Callback{
+        private Cliente cliente;
+        private  Activity activity;
+        public ActionModeCallBack(Activity activity, Cliente cliente) {
+            this.cliente=cliente;
+            this.activity=activity;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.lista_cliente_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+           switch (item.getItemId()){
+               case R.id.item_menu_planilha:
+                   Toast.makeText(activity,R.string.planilhas,Toast.LENGTH_SHORT).show();
+                   break;
+               case R.id.item_menu_temperatura:
+                   Fragment temperaturasFrag = new TemperaturaListaFragment();
+                   Bundle args = new Bundle();
+                   args.putSerializable("cliente",cliente);
+                   temperaturasFrag.setArguments(args);
+                   activity.getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag,"").commit();
+                    onDestroyActionMode(mode);
+                   break;
+           }
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode=null;
+            mAdapter.setSelecionado(-1);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
 }

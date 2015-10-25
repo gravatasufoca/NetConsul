@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.gravata.netconsul.R;
 import com.gravata.netconsul.Utils;
-import com.gravata.netconsul.model.Cliente;
 import com.gravata.netconsul.model.Temperatura;
 
 import org.joda.time.DateTime;
@@ -36,7 +35,7 @@ public class TemperaturaListaAdapter extends ArrayAdapter<Temperatura> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = mInflater.inflate(R.layout.linha_lista_cliente, parent, false);
+        convertView = mInflater.inflate(R.layout.linha_lista_temperatura, parent, false);
 
         if(corOriginal==null)
             corOriginal= Utils.getOriginalColor(convertView);

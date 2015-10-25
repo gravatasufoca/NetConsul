@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.gravata.netconsul.R;
+import com.gravata.netconsul.adapter.PlanilhaRespostaAdapter;
+import com.gravata.netconsul.adapter.planilha.MockDeConteudo;
 
 
 /**
@@ -83,6 +86,8 @@ public class RespostaPlanilhaFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -228,7 +233,10 @@ public class RespostaPlanilhaFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.resposta_planilha_tab, container, false);
+            ListView listView = (ListView) rootView.findViewById(R.id.planilha_resposta_lista);
 
+            PlanilhaRespostaAdapter adapter=new PlanilhaRespostaAdapter(this.getActivity(), MockDeConteudo.PLANILHAS);
+            listView.setAdapter(adapter);
             return rootView;
         }
     }

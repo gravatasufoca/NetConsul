@@ -1,19 +1,22 @@
 package com.gravata.netconsul.fragments;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.gravata.netconsul.R;
+import com.gravata.netconsul.adapter.TemperaturaListaAdapter;
 import com.gravata.netconsul.fragments.dummy.DummyContent;
+import com.gravata.netconsul.model.Cliente;
 
 /**
  * A fragment representing a list of Items.
@@ -37,6 +40,8 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
 
     private OnFragmentInteractionListener mListener;
 
+    private Cliente cliente;
+
     /**
      * The fragment's ListView/GridView.
      */
@@ -47,6 +52,7 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
      * Views.
      */
     private ListAdapter mAdapter;
+
 
     // TODO: Rename and change types of parameters
     public static TemperaturaListaFragment newInstance(String param1, String param2) {
@@ -72,11 +78,12 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            cliente= (Cliente) getArguments().getSerializable("cliente");
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new TemperaturaListaAdapter(this.getActivity(),cliente.getTemperaturas());
     }
 
     @Override
@@ -148,4 +155,9 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
         public void onFragmentInteraction(String id);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.temperatura_lista_menu,menu);
+        super.onPrepareOptionsMenu(menu);
+    }
 }

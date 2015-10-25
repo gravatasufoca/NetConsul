@@ -33,5 +33,4 @@ dependencies {
     //    }
     compile project(':materialSpinner')
     compile 'com.anton46:stepsview:0.0.1'
-    compile project(':quickactions')
 }

@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Fechar nevegação</string>
 
     <string name="action_settings">Configurações</string>
+    <string name="adicionar">Adicionar</string>
 
     <!-- menu lateral-->
     <string name="planilha">Planilha</string>
