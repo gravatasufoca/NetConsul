@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gravata.netconsul.R;
 import com.gravata.netconsul.adapter.TemperaturaListaAdapter;
@@ -53,6 +55,8 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
      */
     private ListAdapter mAdapter;
 
+    private SearchView cCliente;
+
 
     // TODO: Rename and change types of parameters
     public static TemperaturaListaFragment newInstance(String param1, String param2) {
@@ -74,6 +78,9 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+        getActivity().setTitle(R.string.temperaturas);
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -90,6 +97,36 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_temperatura, container, false);
+
+        cCliente = (SearchView) view.findViewById(R.id.temperatura_pesquisa_cliente);
+
+        if(cliente!=null){
+            cCliente.setQuery(cliente.getNomeFantasia(),true);
+        }
+
+        cCliente.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getActivity(), "ola",Toast.LENGTH_SHORT);
+            }
+        });
+
+        cCliente.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getActivity(), "submitei",Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(getActivity(), "changei",Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -157,7 +194,8 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.temperatura_lista_menu,menu);
-        super.onPrepareOptionsMenu(menu);
+       super.onCreateOptionsMenu(menu,inflater);
     }
 }

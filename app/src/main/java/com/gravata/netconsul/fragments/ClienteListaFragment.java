@@ -191,8 +191,9 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
                    Bundle args = new Bundle();
                    args.putSerializable("cliente",cliente);
                    temperaturasFrag.setArguments(args);
+                   mode.finish();
                    activity.getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag,"").commit();
-                    onDestroyActionMode(mode);
+
                    break;
            }
             return true;
