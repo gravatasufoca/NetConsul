@@ -22,6 +22,7 @@ public class TemperaturaListaAdapter extends ArrayAdapter<Temperatura> {
 
     private LayoutInflater mInflater;
     private Integer corOriginal;
+    private int selecionado=-1;
 
     public TemperaturaListaAdapter(Context context, List<Temperatura> itens) {
         super(context, 0,itens);
@@ -58,8 +59,15 @@ public class TemperaturaListaAdapter extends ArrayAdapter<Temperatura> {
         else
             convertView.setBackgroundColor(corOriginal);
 
+        if(selecionado== position){
+            convertView.setBackgroundResource(android.R.color.holo_blue_light);
+        }
+
         return convertView;
     }
 
+    public void setSelecionado(int selecionado) {
+        this.selecionado = selecionado;
+    }
 
 }

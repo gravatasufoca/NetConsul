@@ -3,13 +3,17 @@ package com.gravata.netconsul.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -19,6 +23,7 @@ import com.gravata.netconsul.R;
 import com.gravata.netconsul.adapter.TemperaturaListaAdapter;
 import com.gravata.netconsul.fragments.dummy.DummyContent;
 import com.gravata.netconsul.model.Cliente;
+import com.gravata.netconsul.model.Temperatura;
 
 /**
  * A fragment representing a list of Items.
@@ -29,7 +34,7 @@ import com.gravata.netconsul.model.Cliente;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class TemperaturaListaFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class TemperaturaListaFragment extends Fragment implements AbsListView.OnItemLongClickListener,AbsListView.OnItemClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,9 +58,14 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private TemperaturaListaAdapter mAdapter;
 
-    private SearchView cCliente;
+    private AutoCompleteTextView cCliente;
+    private Button btnPesquisar;
+
+    private ActionMode actionMode;
+
+    private View selecionado;
 
 
     // TODO: Rename and change types of parameters
@@ -98,42 +108,21 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_temperatura, container, false);
 
-        cCliente = (SearchView) view.findViewById(R.id.temperatura_pesquisa_cliente);
+        cCliente = (AutoCompleteTextView) view.findViewById(R.id.temperatura_pesquisa_cliente);
+        btnPesquisar= (Button) view.findViewById(R.id.btnPesquiasr);
 
         if(cliente!=null){
-            cCliente.setQuery(cliente.getNomeFantasia(),true);
+            cCliente.setText(cliente.getNomeFantasia());
         }
 
-        cCliente.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getActivity(), "ola",Toast.LENGTH_SHORT);
-            }
-        });
-
-        cCliente.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getActivity(), "submitei",Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Toast.makeText(getActivity(), "changei",Toast.LENGTH_SHORT).show();
-
-                return true;
-            }
-        });
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+        mListView.setOnItemLongClickListener(this);
+        mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         return view;
     }
@@ -156,12 +145,14 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-        }
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        selecionado=view;
+        mListView.setItemChecked(position,true);
+        mAdapter.setSelecionado(position);
+
+        mListView.startActionMode(new ActionModeCallBack(this.getActivity(), mAdapter.getItem(position)));
+        mAdapter.notifyDataSetChanged();
+        return true;
     }
 
     /**
@@ -175,6 +166,21 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        Temperatura temperatura=mAdapter.getItem(position);
+        Bundle args=new Bundle();
+        args.putSerializable("temperatura",temperatura);
+        abrirHome(args);
+    }
+
+    private  void abrirHome( Bundle args){
+        Fragment temperaturasFrag = new TemperaturaHome();
+        args.putSerializable("cliente", cliente);
+        temperaturasFrag.setArguments(args);
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag,"").commit();
     }
 
     /**
@@ -195,7 +201,61 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.temperatura_lista_menu,menu);
-       super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.temperatura_lista_menu, menu);
+       super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.item_menu_add_temperatura:
+                abrirHome(new Bundle());
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private class ActionModeCallBack implements ActionMode.Callback{
+        private Temperatura temperatura;
+        private  Activity activity;
+        public ActionModeCallBack(Activity activity, Temperatura temperatura) {
+            this.temperatura=temperatura;
+            this.activity=activity;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.lista_cliente_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            switch (item.getItemId()){
+                case R.id.item_menu_add_planilha:
+                    Toast.makeText(activity,R.string.planilhas,Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.item_menu_add_temperatura:
+                   abrirHome(new Bundle());
+
+                    break;
+            }
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode=null;
+            mAdapter.setSelecionado(-1);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

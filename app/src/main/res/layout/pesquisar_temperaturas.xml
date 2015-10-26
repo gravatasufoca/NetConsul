@@ -5,20 +5,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/view">
 
-        <!--<AutoCompleteTextView android:id="@+id/temperatura_pesquisa_cliente" android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" android:hint="@string/prompt_cliente"-->
-            <!--android:inputType="textAutoComplete" android:maxLines="1" android:imeOptions="actionSearch"-->
-            <!--android:singleLine="true" />-->
+        <AutoCompleteTextView android:id="@+id/temperatura_pesquisa_cliente" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/prompt_cliente"
+            android:inputType="textAutoComplete" android:maxLines="1" android:imeOptions="actionSearch"
+            android:singleLine="true" />
 
-        <SearchView
-            android:layout_width="match_parent" android:inputType="textAutoComplete" android:queryHint="@string/prompt_cliente"
-            android:layout_height="wrap_content" android:imeOptions="actionSearch"
-            android:id="@+id/temperatura_pesquisa_cliente"
- />
+        <!--<SearchView-->
+            <!--android:layout_width="match_parent" android:inputType="textAutoComplete" android:queryHint="@string/prompt_cliente"-->
+            <!--android:layout_height="wrap_content" android:imeOptions="actionSearch"-->
+            <!--android:id="@+id/temperatura_pesquisa_cliente"-->
+ <!--/>-->
 
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:background="@android:drawable/ic_menu_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPesquiasr"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

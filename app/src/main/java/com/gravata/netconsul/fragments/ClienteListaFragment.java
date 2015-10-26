@@ -183,10 +183,10 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 
            switch (item.getItemId()){
-               case R.id.item_menu_planilha:
+               case R.id.item_menu_add_planilha:
                    Toast.makeText(activity,R.string.planilhas,Toast.LENGTH_SHORT).show();
                    break;
-               case R.id.item_menu_temperatura:
+               case R.id.item_menu_add_temperatura:
                    Fragment temperaturasFrag = new TemperaturaListaFragment();
                    Bundle args = new Bundle();
                    args.putSerializable("cliente",cliente);

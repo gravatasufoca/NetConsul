@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    tools:context="com.gravata.netconsul.fragments.TemperaturaHome">
+
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatura_cliente"
+        app:ms_hint="@string/prompt_cliente">
+
+    </fr.ganfra.materialspinner.MaterialSpinner>
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatura_data"
+        android:layout_below="@+id/temperatura_cliente"
+        android:layout_alignLeft="@+id/temperatura_cliente"
+        app:ms_hint="@string/data">
+
+    </fr.ganfra.materialspinner.MaterialSpinner>
+
+    <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/temperatura_data"
+        android:layout_alignLeft="@+id/temperatura_cliente"
+        android:id="@+id/v_equipamento">
+
+        <AutoCompleteTextView android:id="@+id/temperatura_equipamento" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/equipamento"
+            android:inputType="textAutoComplete" android:maxLines="1"
+            android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/v_equipamento"
+        android:layout_alignLeft="@+id/temperatura_cliente"
+        android:id="@+id/v_temperatura">
+
+        <AutoCompleteTextView android:id="@+id/temperatura_temperatura" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/temperatura"
+            android:inputType="textAutoComplete" android:maxLines="1"
+            android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatura_acao_corretiva"
+        android:layout_below="@+id/v_temperatura"
+        android:layout_alignLeft="@+id/temperatura_cliente"
+        app:ms_hint="@string/acao_corretiva">
+
+    </fr.ganfra.materialspinner.MaterialSpinner>
+
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatura_responsavel"
+        android:layout_below="@+id/temperatura_acao_corretiva"
+        android:layout_alignLeft="@+id/temperatura_cliente"
+        app:ms_hint="@string/responsavel">
+
+    </fr.ganfra.materialspinner.MaterialSpinner>
+
+</RelativeLayout>
