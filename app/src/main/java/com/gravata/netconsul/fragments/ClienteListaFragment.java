@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gravata.netconsul.R;
+import com.gravata.netconsul.activities.MainActivity;
 import com.gravata.netconsul.adapter.ClienteListaAdapter;
 import com.gravata.netconsul.adapter.planilha.MockDeConteudo;
 import com.gravata.netconsul.model.Cliente;
@@ -192,8 +193,7 @@ public class ClienteListaFragment extends Fragment implements AbsListView.OnItem
                    args.putSerializable("cliente",cliente);
                    temperaturasFrag.setArguments(args);
                    mode.finish();
-                   activity.getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag,"").commit();
-
+                   activity.getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag, MainActivity.TEMPERATURA_LISTA).addToBackStack(MainActivity.TEMPERATURA_LISTA).commit();
                    break;
            }
             return true;

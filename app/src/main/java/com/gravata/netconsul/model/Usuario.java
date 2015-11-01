@@ -1,6 +1,7 @@
 package com.gravata.netconsul.model;
 
 import com.gravata.netconsul.helper.FieldName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -38,7 +39,7 @@ public class Usuario extends EntidadeAbstrata{
 	private List<Planilha> planilhas=new ArrayList<Planilha>();
 
 	@ForeignCollectionField(eager = false)
-	private List<Atendimento> atendimentos=new ArrayList<Atendimento>();
+	private ForeignCollection<Atendimento> atendimentos;
 
 
 	public Serializable getId() {
@@ -81,11 +82,11 @@ public class Usuario extends EntidadeAbstrata{
 		this.planilhas = planilhas;
 	}
 
-	public List<Atendimento> getAtendimentos() {
+	public ForeignCollection<Atendimento> getAtendimentos() {
 		return atendimentos;
 	}
 
-	public void setAtendimentos(List<Atendimento> atendimentos) {
+	public void setAtendimentos(ForeignCollection<Atendimento> atendimentos) {
 		this.atendimentos = atendimentos;
 	}
 }

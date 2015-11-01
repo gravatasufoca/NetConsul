@@ -1,34 +1,39 @@
 package com.gravata.netconsul.helper;
 
-import com.gravata.netconsul.repositorio.*;
-import com.j256.ormlite.field.DatabaseField;
-
-import android.app.Activity;
 import android.os.Bundle;
+import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.gravata.netconsul.R;
+import com.gravata.netconsul.adapter.DataAdapter;
+import com.gravata.netconsul.dao.OrmLiteFragment;
+import com.gravata.netconsul.repositorio.RepositorioGenerico;
+import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
 import tools.devnull.trugger.reflection.Reflection;
 
-public class HomeHelper<E> extends Activity {
+public class HomeHelper<E> extends OrmLiteFragment {
 
 	protected Class<E> clazz;
 	protected E instance;
+	Map<Field,MapField> fields=new HashMap<Field, MapField>();
 	private List<Field> requireds;
 	private RepositorioGenerico<E> repositorioGenerico;
-
-	Map<Field,MapField> fields=new HashMap<Field, MapField>();
 
 	public HomeHelper() {
 		this.clazz = Reflection.reflect().genericType("E").in(this);
@@ -36,33 +41,24 @@ public class HomeHelper<E> extends Activity {
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		try {
-			repositorioGenerico=new RepositorioGenerico<E>(this,true);
+			repositorioGenerico=new RepositorioGenerico<E>(getHelper(),clazz);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/*public E getEntity(){
-		if(entity==null){
-			try {
-				entity= (E) getValue(getField(clazz.getSimpleName().toLowerCase()));
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			}
-		}
-		return entity;
-	}*/
-
-	protected E getInstance() {
+	public E getInstance() {
 		if(instance==null){
 			try {
 				instance=clazz.newInstance();
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (java.lang.InstantiationException e) {
 				e.printStackTrace();
 			}
 		}
@@ -174,11 +170,16 @@ public class HomeHelper<E> extends Activity {
 
 					if(tmp.getText().length()==0){
 						invalids.add(field.getName());
+						if(value instanceof AutoCompleteTextView){
+							((AutoCompleteTextView)value).setError(getString(R.string.error_field_required));
+						}
 					}
 				}else if(value instanceof Spinner){
 					Spinner tmp=(Spinner)value;
-					if(tmp.getSelectedItem()==null){
+					if(tmp.getSelectedItem()==null || tmp.getAdapter().getItem(0).equals(tmp.getSelectedItem()) ){
 						invalids.add(field.getName());
+						if(value.getClass().isAssignableFrom(MaterialSpinner.class))
+							((MaterialSpinner)value).setError(getString(R.string.error_field_required));
 					}
 //					if(tmp.getAdapter() instanceof CategoriaSpinnerAdapter && tmp.getSelectedItemPosition()==0){
 //						invalids.add(field.getName());
@@ -221,24 +222,19 @@ public class HomeHelper<E> extends Activity {
 							field.getDbField().set(instance, tmp.getText().toString());
 						}
 					}
-
-
 				}
-// else if(value instanceof Spinner){
-//					Spinner tmp=(Spinner)value;
-//
-//					if(tmp.getAdapter() instanceof DataAdapter){
-//						Date at;
-//						try {
-//							at = new SimpleDateFormat("dd/MM/yyyy").parse((String) tmp.getSelectedItem());
-//							field.getDbField().set(instance, at);
-//						} catch (ParseException e) {}
-//					}else
-//						field.getDbField().set(instance, tmp.getSelectedItem());
-//				}else if(value instanceof ColorPicker){
-//					ColorPicker tmp=(ColorPicker)value;
-//					field.getDbField().set(instance, tmp.getColor());
-//				}
+ 				else if(value instanceof Spinner){
+					Spinner tmp=(Spinner)value;
+
+					if(tmp.getAdapter() instanceof DataAdapter){
+						Date at;
+						try {
+							at = new SimpleDateFormat("dd/MM/yyyy").parse((String) tmp.getSelectedItem());
+							field.getDbField().set(instance, at);
+						} catch (ParseException e) {}
+					}else
+						field.getDbField().set(instance, tmp.getSelectedItem());
+				}
 			}
 		}
 

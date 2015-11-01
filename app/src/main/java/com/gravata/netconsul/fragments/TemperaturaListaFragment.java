@@ -15,15 +15,16 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListAdapter;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gravata.netconsul.R;
+import com.gravata.netconsul.activities.MainActivity;
 import com.gravata.netconsul.adapter.TemperaturaListaAdapter;
-import com.gravata.netconsul.fragments.dummy.DummyContent;
 import com.gravata.netconsul.model.Cliente;
 import com.gravata.netconsul.model.Temperatura;
+
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -100,7 +101,7 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
         }
 
         // TODO: Change Adapter to display your content
-        mAdapter = new TemperaturaListaAdapter(this.getActivity(),cliente.getTemperaturas());
+        mAdapter = new TemperaturaListaAdapter(this.getActivity(),new ArrayList<Temperatura>(cliente.getTemperaturas()));
     }
 
     @Override
@@ -172,7 +173,7 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         Temperatura temperatura=mAdapter.getItem(position);
         Bundle args=new Bundle();
-        args.putSerializable("temperatura",temperatura);
+        args.putSerializable("temperatura", temperatura);
         abrirHome(args);
     }
 
@@ -180,8 +181,9 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
         Fragment temperaturasFrag = new TemperaturaHome();
         args.putSerializable("cliente", cliente);
         temperaturasFrag.setArguments(args);
-        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag,"").commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.content_main, temperaturasFrag, MainActivity.TEMPERATURA_HOME).addToBackStack(MainActivity.TEMPERATURA_HOME).commit();
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -209,7 +211,7 @@ public class TemperaturaListaFragment extends Fragment implements AbsListView.On
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.item_menu_add_temperatura:
+            case R.id.item_menu_lista_temperatura:
                 abrirHome(new Bundle());
                 break;
         }

@@ -1,19 +1,29 @@
 package com.gravata.netconsul.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.gravata.netconsul.R;
+import com.gravata.netconsul.adapter.DataAdapter;
+import com.gravata.netconsul.adapter.combos.ClienteComboAdapter;
+import com.gravata.netconsul.adapter.combos.SimNaoComboAdapter;
+import com.gravata.netconsul.adapter.planilha.MockDeConteudo;
+import com.gravata.netconsul.helper.HomeHelper;
 import com.gravata.netconsul.model.Cliente;
+import com.gravata.netconsul.model.Temperatura;
+
+import java.util.ArrayList;
+
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +33,7 @@ import com.gravata.netconsul.model.Cliente;
  * Use the {@link TemperaturaHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TemperaturaHome extends Fragment {
+public class TemperaturaHome extends HomeHelper<Temperatura> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,6 +46,13 @@ public class TemperaturaHome extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private Cliente cliente;
+
+    private MaterialSpinner campoCliente, campoAcaoCorretiva, campoData;
+    private AutoCompleteTextView campoEquipamento, campoTemperatura;
+
+    private SimNaoComboAdapter simNaoComboAdapter;
+    private ClienteComboAdapter clienteComboAdapter;
+    private DataAdapter dataAdapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -62,11 +79,14 @@ public class TemperaturaHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
 
             cliente= (Cliente) getArguments().getSerializable("cliente");
+
+
         }
     }
 
@@ -74,11 +94,27 @@ public class TemperaturaHome extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_temperatura_home, container, false);
+        View root= inflater.inflate(R.layout.fragment_temperatura_home, container, false);
+
+        campoCliente = (MaterialSpinner) root.findViewById(R.id.temperatura_cliente);
+        campoData = (MaterialSpinner) root.findViewById(R.id.temperatura_data);
+        campoAcaoCorretiva = (MaterialSpinner) root.findViewById(R.id.temperatura_acao_corretiva);
+        campoTemperatura = (AutoCompleteTextView) root.findViewById(R.id.temperatura_temperatura);
+        campoEquipamento = (AutoCompleteTextView) root.findViewById(R.id.temperatura_equipamento);
+
+        simNaoComboAdapter=new SimNaoComboAdapter(getActivity());
+        dataAdapter=new DataAdapter(getActivity(),R.layout.spinner_item,new ArrayList<String>(), campoData);
+        clienteComboAdapter=new ClienteComboAdapter(getActivity(), MockDeConteudo.CLIENTES);
+
+        campoCliente.setAdapter(clienteComboAdapter);
+        campoAcaoCorretiva.setAdapter(simNaoComboAdapter);
+        campoData.setAdapter(dataAdapter);
+        campoData.onLoadFinished(dataAdapter.getOnClickListener());
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
@@ -113,13 +149,13 @@ public class TemperaturaHome extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(String uri);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.temperatura_menu,menu);
+        inflater.inflate(R.menu.menu_salvar,menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -127,12 +163,9 @@ public class TemperaturaHome extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.item_menu_save_temperatura:
+            case R.id.item_salvar:
                 Toast.makeText(getActivity(),"salvou",Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.item_menu_cancelar_temperatura:
-                Toast.makeText(getActivity(),"cancelou",Toast.LENGTH_SHORT).show();
+                isValid();
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -36,36 +36,43 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/v_equipamento"
-        android:layout_alignLeft="@+id/temperatura_cliente"
-        android:id="@+id/v_temperatura">
-
-        <AutoCompleteTextView android:id="@+id/temperatura_temperatura" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="@string/temperatura"
-            android:inputType="textAutoComplete" android:maxLines="1"
-            android:singleLine="true" />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-    <fr.ganfra.materialspinner.MaterialSpinner
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/temperatura_acao_corretiva"
-        android:layout_below="@+id/v_temperatura"
-        android:layout_alignLeft="@+id/temperatura_cliente"
-        app:ms_hint="@string/acao_corretiva">
+        android:layout_below="@+id/v_equipamento"
+        android:id="@+id/v_linear"
+        android:layout_alignLeft="@+id/temperatura_cliente">
 
-    </fr.ganfra.materialspinner.MaterialSpinner>
+        <android.support.design.widget.TextInputLayout android:layout_width="match_parent" android:layout_weight="0.5" android:layout_marginTop="6dp"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/v_temperatura">
+
+            <AutoCompleteTextView android:id="@+id/temperatura_temperatura" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:hint="@string/temperatura"
+                android:inputType="textAutoComplete" android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <fr.ganfra.materialspinner.MaterialSpinner android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/temperatura_acao_corretiva"
+            app:ms_hint="@string/acao_corretiva">
+
+        </fr.ganfra.materialspinner.MaterialSpinner>
+
+    </LinearLayout>
 
 
     <fr.ganfra.materialspinner.MaterialSpinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/temperatura_responsavel"
-        android:layout_below="@+id/temperatura_acao_corretiva"
+        android:layout_below="@+id/v_linear"
         android:layout_alignLeft="@+id/temperatura_cliente"
         app:ms_hint="@string/responsavel">
 

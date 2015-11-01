@@ -1,7 +1,5 @@
 package com.gravata.netconsul.repositorio;
 
-import android.content.Context;
-
 import com.gravata.netconsul.dao.DatabaseHelper;
 import com.j256.ormlite.dao.Dao;
 
@@ -12,23 +10,16 @@ import java.util.List;
 
 import tools.devnull.trugger.reflection.Reflection;
 
-public class RepositorioGenerico<E> extends DatabaseHelper implements Repositorio<E>{
+public class RepositorioGenerico<E> implements Repositorio<E>{
 
 	protected Dao<E, Integer> database;
 	protected Class<E> entityClass;
-	protected Context context;
+	protected DatabaseHelper databaseHelper;
 
-	public RepositorioGenerico(Context context) throws SQLException {
-		super(context);
-		this.entityClass = Reflection.reflect().genericType("E").in(this);
-	    this.database=getDao(this.entityClass);
-	    this.context=context;
-	}
-
-	public RepositorioGenerico(Context context,boolean fromHelper) throws SQLException {
-		super(context);
-		this.entityClass = Reflection.reflect().genericType("E").in(context);
-	    this.database=getDao(this.entityClass);
+	public RepositorioGenerico(DatabaseHelper databaseHelper, Class clazz) throws SQLException {
+		this.databaseHelper=databaseHelper;
+		this.entityClass = clazz; // Reflection.reflect().genericType("E").in(this);
+	    this.database=databaseHelper.getDao(this.entityClass);
 	}
 
 	@Override

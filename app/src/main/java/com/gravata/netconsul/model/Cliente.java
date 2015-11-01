@@ -1,6 +1,7 @@
 package com.gravata.netconsul.model;
 
 import com.gravata.netconsul.helper.FieldName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -34,11 +35,10 @@ public class Cliente extends EntidadeAbstrata {
     private String telefone;
 
     @ForeignCollectionField(eager = false)
-    private List<Planilha> planilhas=new ArrayList<Planilha>();
-    //private ForeignCollection<Planilha> planilhas;
+    private ForeignCollection<Planilha> planilhas;
 
     @ForeignCollectionField(eager = false)
-    private List<Temperatura> temperaturas=new ArrayList<Temperatura>();
+    private ForeignCollection<Temperatura> temperaturas;
 
 
     @Override
@@ -74,20 +74,19 @@ public class Cliente extends EntidadeAbstrata {
         this.id = id;
     }
 
-    public List<Planilha> getPlanilhas() {
-
+    public ForeignCollection<Planilha> getPlanilhas() {
         return planilhas;
     }
 
-    public void setPlanilhas(List<Planilha> planilhas) {
+    public void setPlanilhas(ForeignCollection<Planilha> planilhas) {
         this.planilhas = planilhas;
     }
 
-    public List<Temperatura> getTemperaturas() {
+    public ForeignCollection<Temperatura> getTemperaturas() {
         return temperaturas;
     }
 
-    public void setTemperaturas(List<Temperatura> temperaturas) {
+    public void setTemperaturas(ForeignCollection<Temperatura> temperaturas) {
         this.temperaturas = temperaturas;
     }
 }

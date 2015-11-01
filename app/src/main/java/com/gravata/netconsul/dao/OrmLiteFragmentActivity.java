@@ -1,17 +1,17 @@
 package com.gravata.netconsul.dao;
 
-import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
-public class OrmLiteFragment extends Fragment {
+public class OrmLiteFragmentActivity extends AppCompatActivity {
 
-    private DatabaseHelper databaseHelper = null;
+    private static DatabaseHelper databaseHelper = null;
 
     protected DatabaseHelper getHelper() {
         if (databaseHelper == null) {
             databaseHelper =
-                OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+                OpenHelperManager.getHelper(this, DatabaseHelper.class);
         }
         return databaseHelper;
     }

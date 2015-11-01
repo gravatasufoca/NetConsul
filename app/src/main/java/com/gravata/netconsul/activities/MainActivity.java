@@ -5,35 +5,44 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gravata.netconsul.R;
 import com.gravata.netconsul.authenticator.AutenticarUsuario;
+import com.gravata.netconsul.dao.OrmLiteFragmentActivity;
 import com.gravata.netconsul.fragments.ClienteListaFragment;
 import com.gravata.netconsul.fragments.HomeFragment;
 import com.gravata.netconsul.fragments.RespostaPlanilhaFragment;
+import com.gravata.netconsul.fragments.TemperaturaHome;
 import com.gravata.netconsul.fragments.TemperaturaListaFragment;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends OrmLiteFragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         RespostaPlanilhaFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
         ClienteListaFragment.OnFragmentInteractionListener,
-        TemperaturaListaFragment.OnFragmentInteractionListener{
+        TemperaturaListaFragment.OnFragmentInteractionListener,
+        TemperaturaHome.OnFragmentInteractionListener{
 
 
     public static int CLIENTE_LISTA_TEMPERATURA=1;
     public static int TEMPERATURA_ADD=2;
     public static int TEMPERATURA_DEL=3;
 
+    public static String CLIENTE_LISTA="CLIENTE_LISTA";
+    public static String TEMPERATURA_LISTA="TEMPERATURA_LISTA";
+    public static String PLANINHA_LISTA="PLANINHA_LISTA";
+    public static String TEMPERATURA_HOME="TEMPERATURA_HOME";
+    public static String PLANILHA_HOME="PLANILHA_HOME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getHelper().getWritableDatabase();
 
         //loga-se
         AutenticarUsuario.autenticar("", "");
@@ -50,8 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        getFragmentManager().beginTransaction().replace(R.id.content_main, new HomeFragment(), "").commit();
+        getFragmentManager().beginTransaction().replace(R.id.content_main, new HomeFragment(), "home").addToBackStack("home").commit();
     }
 
     @Override
@@ -59,7 +67,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }if(getFragmentManager().getBackStackEntryCount()>0){
+            getFragmentManager().popBackStack();
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -93,12 +104,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_clientes) {
-            getFragmentManager().beginTransaction().replace(R.id.content_main,new ClienteListaFragment(),"").commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_main,new ClienteListaFragment(),CLIENTE_LISTA).addToBackStack(CLIENTE_LISTA).commit();
         } else if (id == R.id.nav_gallery) {
-            getFragmentManager().beginTransaction().replace(R.id.content_main,new RespostaPlanilhaFragment(),"").commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_main, new RespostaPlanilhaFragment(), PLANINHA_LISTA).addToBackStack(PLANINHA_LISTA).commit();
 
         } else if (id == R.id.nav_slideshow) {
-            getFragmentManager().beginTransaction().replace(R.id.content_main,new TemperaturaListaFragment(),"").commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_main, new TemperaturaListaFragment(), TEMPERATURA_LISTA).addToBackStack(TEMPERATURA_LISTA).commit();
 
 
         } else if (id == R.id.nav_manage) {

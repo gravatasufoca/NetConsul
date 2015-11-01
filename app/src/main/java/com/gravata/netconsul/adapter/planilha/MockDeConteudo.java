@@ -85,7 +85,7 @@ public class MockDeConteudo {
         }
 
 
-        for (int i = 0, a = 0; i < 10; i++, a++) {
+      /*  for (int i = 0, a = 0; i < 10; i++, a++) {
             PERGUNTAS.get(i).setTipoPergunta(TIPOSPERGUNTAS.get(a));
             if (a == 4)
                 a = 0;
@@ -156,7 +156,7 @@ public class MockDeConteudo {
                 if (atendimento.getUsuario().equals(usuario))
                     usuario.getAtendimentos().add(atendimento);
             }
-        }
+        }*/
 
 
     }

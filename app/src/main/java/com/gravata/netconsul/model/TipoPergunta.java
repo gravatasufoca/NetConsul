@@ -15,7 +15,7 @@ public class TipoPergunta extends EntidadeAbstrata {
     private static final long serialVersionUID = 1707636164113678309L;
 
     @DatabaseField(generatedId = true,columnName = "id_tipo_pergunta")
-    private int id;
+    private Integer id;
 
     @DatabaseField(columnName = "nome_tipo_pergunta",canBeNull = false)
     private String nome;
@@ -28,7 +28,7 @@ public class TipoPergunta extends EntidadeAbstrata {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

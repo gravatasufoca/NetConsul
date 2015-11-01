@@ -17,7 +17,7 @@ public class Pergunta extends EntidadeAbstrata{
 
 
     @DatabaseField(generatedId = true,columnName = "id_pergunta")
-    private int id;
+    private Integer id;
 
     @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
     @FieldName(fieldName="nomeFantasia")
@@ -39,7 +39,7 @@ public class Pergunta extends EntidadeAbstrata{
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,4 +74,5 @@ public class Pergunta extends EntidadeAbstrata{
     public void setTipoPergunta(TipoPergunta tipoPergunta) {
         this.tipoPergunta = tipoPergunta;
     }
+
 }
