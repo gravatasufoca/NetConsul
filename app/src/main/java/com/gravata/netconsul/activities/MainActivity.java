@@ -5,6 +5,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ import com.gravata.netconsul.fragments.RespostaPlanilhaFragment;
 import com.gravata.netconsul.fragments.TemperaturaHome;
 import com.gravata.netconsul.fragments.TemperaturaListaFragment;
 
-public class MainActivity extends OrmLiteFragmentActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         RespostaPlanilhaFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
@@ -41,12 +42,6 @@ public class MainActivity extends OrmLiteFragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        getHelper().getWritableDatabase();
-
-        //loga-se
-        AutenticarUsuario.autenticar("", "");
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

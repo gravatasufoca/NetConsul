@@ -51,10 +51,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Temperatura.class);
 			TableUtils.createTable(connectionSource, Usuario.class);
 			TableUtils.createTable(connectionSource, Atendimento.class);
+			TableUtils.createTable(connectionSource, TipoPergunta.class);
 			TableUtils.createTable(connectionSource, Pergunta.class);
 			TableUtils.createTable(connectionSource, TemperaturaCliente.class);
 			TableUtils.createTable(connectionSource, Planilha.class);
-			TableUtils.createTable(connectionSource, TipoPergunta.class);
 
 			criarMock();
 

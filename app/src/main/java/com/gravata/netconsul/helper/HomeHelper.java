@@ -44,7 +44,7 @@ public class HomeHelper<E> extends OrmLiteFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		try {
-			repositorioGenerico=new RepositorioGenerico<E>(getHelper(),clazz);
+			repositorioGenerico=new RepositorioGenerico<E>(this.getActivity(),clazz);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

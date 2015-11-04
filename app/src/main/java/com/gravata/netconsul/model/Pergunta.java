@@ -1,6 +1,7 @@
 package com.gravata.netconsul.model;
 
 import com.gravata.netconsul.helper.FieldName;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -19,19 +20,20 @@ public class Pergunta extends EntidadeAbstrata{
     @DatabaseField(generatedId = true,columnName = "id_pergunta")
     private Integer id;
 
-    @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
-    @FieldName(fieldName="nomeFantasia")
+    @DatabaseField(canBeNull=false,columnName = "nome_pergunta")
+    @FieldName(fieldName="campoPergunta")
     private String nomePergunta;
 
-    @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
-    @FieldName(fieldName="nomeFantasia")
+    @DatabaseField(canBeNull=false,columnName = "dataCadastro",dataType = DataType.DATE_LONG)
+    @FieldName(fieldName="campoDataCadastro")
     private Date dataCadastro;
 
-    @DatabaseField(canBeNull=false,columnName = "nome_fantasia")
-    @FieldName(fieldName="nomeFantasia")
+    @DatabaseField(canBeNull=false,columnName = "situacao")
+    @FieldName(fieldName="campoSituacao")
     private String situacao;
 
     @DatabaseField(canBeNull=false,foreign=true,foreignAutoRefresh=true,foreignAutoCreate=true)
+    @FieldName(fieldName = "campoTipoPergunta")
     private TipoPergunta tipoPergunta;
 
     @Override

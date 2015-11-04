@@ -36,7 +36,7 @@ public class Usuario extends EntidadeAbstrata{
 
 
 	@ForeignCollectionField(eager = false)
-	private List<Planilha> planilhas=new ArrayList<Planilha>();
+	private ForeignCollection<Planilha> planilhas;
 
 	@ForeignCollectionField(eager = false)
 	private ForeignCollection<Atendimento> atendimentos;
@@ -74,11 +74,11 @@ public class Usuario extends EntidadeAbstrata{
 		this.senha = senha;
 	}
 
-	public List<Planilha> getPlanilhas() {
+	public ForeignCollection<Planilha> getPlanilhas() {
 		return planilhas;
 	}
 
-	public void setPlanilhas(List<Planilha> planilhas) {
+	public void setPlanilhas(ForeignCollection<Planilha> planilhas) {
 		this.planilhas = planilhas;
 	}
 

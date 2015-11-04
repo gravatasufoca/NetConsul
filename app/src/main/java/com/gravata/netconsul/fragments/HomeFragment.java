@@ -10,8 +10,14 @@ import android.widget.TextView;
 
 import com.gravata.netconsul.R;
 import com.gravata.netconsul.authenticator.UsuarioAutenticado;
+import com.gravata.netconsul.helper.HomeHelper;
+import com.gravata.netconsul.model.Usuario;
+import com.gravata.netconsul.repositorio.RepositorioUsuario;
+import com.gravata.netconsul.repositorio.impl.RepositorioUsuarioImpl;
 
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -22,7 +28,7 @@ import java.util.Calendar;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends HomeHelper<Usuario> {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,6 +39,8 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private RepositorioUsuario repositorioUsuario;
 
     /**
      * Use this factory method to create a new instance of
@@ -63,6 +71,14 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        try {
+            repositorioUsuario=new RepositorioUsuarioImpl(this.getActivity());
+
+            List<Usuario> usuarioList=repositorioUsuario.listar();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

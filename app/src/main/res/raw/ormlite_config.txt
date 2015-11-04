@@ -1,5 +1,5 @@
 #
-# generated on 2015/11/01 04:51:52
+# generated on 2015/11/02 01:04:19
 #
 # --table-start--
 dataClass=com.gravata.netconsul.model.Pergunta
@@ -12,17 +12,18 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=nomePergunta
-columnName=nome_fantasia
+columnName=nome_pergunta
 canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=dataCadastro
-columnName=nome_fantasia
+columnName=dataCadastro
+dataPersister=DATE_LONG
 canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=situacao
-columnName=nome_fantasia
+columnName=situacao
 canBeNull=false
 # --field-end--
 # --field-start--
