@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class AutenticarUsuario {
 
-    public static boolean autenticar(Context context,String usuario,String senha){
+    public static void autenticar(Context context,String usuario,String senha) throws UsuarioInvalidoException {
 
         try {
             RepositorioUsuario repositorioUsuario=new RepositorioUsuarioImpl(context);
@@ -22,16 +22,22 @@ public class AutenticarUsuario {
 
             if(user!=null) {
                 UsuarioAutenticado.getInstance().setUsuario(user);
-                return true;
             }
             else {
                 UsuarioAutenticado.getInstance().setUsuario(null);
-                return false;
+                throw new UsuarioInvalidoException("Usuário ou senha inválido!");
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new UsuarioInvalidoException("Erro na validação.");
+
+        }
+    }
+
+    public static class UsuarioInvalidoException extends Exception{
+
+        public UsuarioInvalidoException(String detailMessage) {
+            super(detailMessage);
         }
     }
 
